@@ -1,0 +1,9 @@
+{% extends "deletebs.html" %}
+{% block titulo %}{{ title }}{% endblock %}
+{% block formback %}/assets{% endblock %}
+{% block formaction %}/assets{% endblock %}
+{% block formdestination %}/assets{% endblock %}
+{% block formactionvalue %}delete{% endblock %}
+{% block formobjectid %}{{ asset.id }}{% endblock %}
+{% block formobjectname %}Asset: {% endblock %}
+{% block formobjectrepr %}{{ asset.simple_name }}{% endblock %}

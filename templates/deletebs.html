@@ -1,0 +1,70 @@
+{% extends "basebs.html" %}
+{% block heading %}
+    <script type="text/javascript">
+        $(function() {
+            {% block javascript %}
+            {% endblock %}
+
+            envioformulario = function(){
+                $('.datepicker').css({"display": "none"});
+                var formdata = new FormData($("#formulario")[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "{% block formaction %}/{% endblock %}",
+                    data: formdata,
+                    success: function(data) {
+                        if (data.result == 'ok') {
+                            location.href = "{% block formdestination %}/{% endblock %}";
+                        } else {
+                            smoke.alert(data.mensaje);
+                        }
+                    },
+                    error: function() {
+                        smoke.alert("Error al enviar los datos.");
+                    },
+                    dataType: "json",
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            };
+
+            $("#formbutton").click(function(){
+                envioformulario();
+            });
+        });
+    </script>
+    {% block extraheading %}
+    {% endblock %}
+{% endblock %}
+{% block canvas %}
+    <div class='row'>
+        <div class="col-md-12">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <i class="glyphicon glyphicon-pencil pull-right"></i>
+                            <h4>{% block titulo %}{% endblock %}</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form id="formulario">
+                            <input type='hidden' name="action" value="{% block formactionvalue %}delete{% endblock %}"/>
+                            <input type='hidden' name='id' value="{% block formobjectid %}0{% endblock %}"/>
+                            <p class="larger">Are you sure you want to delete {% block formobjectname %}{% endblock %} <b>{% block formobjectrepr %}{% endblock %}</b></p>
+                            <p style="text-align: right;">
+                                <a id="formbutton" class='btn btn-lg btn-danger'><i class="glyphicon glyphicon-check"></i> {% block botonlabel %}YES{% endblock %}</a>
+                                {% block extrabuttons %}
+                                {% endblock %}
+                                <a href="{% block formback %}#{% endblock %}" class="btn btn-lg btn-info"><i class="glyphicon glyphicon-refresh"></i> NO</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+{% endblock %}

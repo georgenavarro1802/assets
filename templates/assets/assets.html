@@ -1,0 +1,153 @@
+{% extends "basebs.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block heading %}
+    <script>
+        $(function() {
+
+            $("#search").click(function() {
+                var term = $("#searchfield").val().toUpperCase();
+                location.href = "/assets?s="+term;
+            });
+
+            $('#searchfield').keyup(function(e) {
+                if(e.keyCode == 13) {
+                    $("#search").trigger("click");
+                }
+            });
+
+            var apply_filters = function () {
+                var a = $("#areasel").val();
+                var t = $("#tiposel").val();
+                location.href = '/assets?a='+a+"&t="+t;
+            };
+
+            $("#areasel, #tiposel").change(function() {
+                apply_filters();
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block canvas %}
+    {% if depr %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    Assets Depreciation of the month has been succesfully generated !
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class='row'>
+        <div class="col-md-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input class='form-control' style="width: 500px" type="text" id='searchfield'  placeholder="search by code or description" value="{{ search }}">
+                </div>
+                <a class="btn btn-info btn-sm tr" id="search" title="Search"><i class="glyphicon glyphicon-search"></i></a>
+                {% if search %}
+                    <a href="/assets" id='allresults' class='btn btn-primary btn-sm tr' title="All"><i class="glyphicon glyphicon-list"></i> </a>
+                {% endif %}
+                <div class="form-group" style="margin-left: 20px; float: right">
+                    <select id='tiposel' class="form-control" style="width: 200px">
+                        <option value='0'>-----</option>
+                        {% for t in types %}
+                            <option value="{{ t.id }}" {% ifequal typeid t.id %}selected="selected"{% endifequal %}>{{ t }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group" style="margin-left: 20px; float: right">
+                    <select id='areasel' class="form-control" style="width: 200px;">
+                        <option value='0'>-----</option>
+                        {% for a in areas %}
+                            <option value="{{ a.id }}" {% ifequal areaid a.id %}selected="selected"{% endifequal %}>{{ a }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class='row' style="padding-top: 1em">
+        <div class='col-md-12'>
+            <table class='table table-bordered table-hover'>
+                <thead>
+                <tr>
+                    <th style="width: 100px">Code</th>
+                    <th>Description</th>
+                    <th style="width: 160px; text-align: center">Type</th>
+                    <th style="width: 90px; text-align: center">Init.Val.</th>
+                    <th style="width: 90px; text-align: center">Depr.Val</th>
+                    <th style="width: 90px; text-align: center">Curr.Val.</th>
+                    <th style="width: 160px; text-align: center">Area</th>
+                    <th style="width: 70px; text-align: center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for asset in assets %}
+                    <tr>
+                        <td nowrap>
+                            {% if asset.foto %}<i class="glyphicon glyphicon-camera"></i>{% endif %} {{ asset.code }}
+                        </td>
+                        <td>{{ asset.description }}</td>
+                        <td style="text-align: center">{{ asset.type }}</td>
+                        <td style="text-align: center;">{{ asset.initial_value|floatformat:2|intcomma }}</td>
+                        <td style="text-align: center;">{{ asset.depreciated_value|floatformat:2|intcomma }}</td>
+                        <td style="text-align: center;">{{ asset.current_value|floatformat:2|intcomma }}</td>
+                        <td class="smaller2" style="text-align: center;">{{ asset.area }}</td>
+                        <td style="text-align: center">
+                            <a href="/assets?action=edit&id={{ asset.id }}" class="tl" title="Edit"><i class="glyphicon glyphicon-edit"></i> </a>
+                            <a href="/assets?action=delete&id={{ asset.id }}" class="tl" title="Remove" style="margin-left: 0.3em"><i class="glyphicon glyphicon-remove"></i> </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="10">
+                            THERE IS NOT FIXED ASSETS IN THE SYSTEM
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/assets?action=add" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> New Asset</a>
+            {% if assets %}
+                {% if not exists_depreciation_month %}
+                    <a href="/assets?action=depreciation" class="btn btn-warning btn-sm" style="margin-left: 0.5em"><i class="glyphicon glyphicon-refresh"></i> Generate Depreciation</a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-md-6 atright">
+            <nav style="text-align: right">
+                {% if paging.num_pages > 20 %}
+                    <ul class="pagination pagination-sm">
+                        {% if paging.primera_pagina %}
+                            <li><a href="/assets?page=1">1</a></li>
+                            <li><a href="/assets?page={{ paging.ellipsis_izquierda }}" class="active">...</a></li>
+                        {% endif %}
+                        {% for pagenumber in paging.paginas %}
+                            <li {% ifequal pagenumber page.number %}class='active'{% endifequal %}><a href="/assets?page={{ pagenumber }}{% if areaid %}&a={{ areaid }}{% endif %}">{{ pagenumber }}</a></li>
+                        {% endfor %}
+                        {% if paging.ultima_pagina %}
+                            <li><a href="/assets?page={{ paging.ellipsis_derecha }}" class="active">...</a></li>
+                            <li><a href="/assets?page={{ paging.num_pages }}">{{ paging.num_pages }}</a></li>
+                        {% endif %}
+                    </ul>
+                {% else %}
+                    <ul class='pagination pagination-sm'>
+                        {% for pagenumber in paging.page_range %}
+                            <li {% ifequal pagenumber page.number %}class='active'{% endifequal %}><a href="/assets?{% if areaid %}a={{ areaid }}&{% endif %}{% if search %}s={{ search }}&{% endif %}page={{ pagenumber }}{% if tipoid %}&t={{ tipoid }}{% endif %}">{{ pagenumber }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+
+{% endblock %}

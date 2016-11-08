@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Fixed Assets Demo App">
+    <meta name="author" content="George">
+
+    <title>{{ title }}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/datepicker.css' %}" rel='stylesheet'/>
+    <link href="{% static 'css/validationEngine.jquery.css' %}" rel='stylesheet'/>
+    <link href="{% static 'css/smoke.css' %}" rel="stylesheet" />
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- header -->
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Fixed Assets</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href=""><i class="glyphicon glyphicon-user"></i> {{ usuario }}</a></li>
+                {% if usuario.is_superuser %}
+                    <li><a href="/admin" target="_blank"><i class="glyphicon glyphicon-user"></i> Admin</a></li>
+                {% endif %}
+                <li><a href="/logout"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                <li class="divider"></li>
+                <li><a href="" style="font-size: 17px;" id="clock"></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /container -->
+</div>
+<!-- /Header -->
+
+<!-- Main -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="{% ifequal link 'home' %}active{% endifequal %}"><a href="/"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li class="{% ifequal link 'assets' %}active{% endifequal %}"><a href="/assets"><i class="glyphicon glyphicon-list"></i> Assets</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-upload"></i> Purchases</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i> Depreciations</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-briefcase"></i> Maintenance</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-bishop"></i> Revalorations</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-move"></i> Movements</a></li>
+                <li class="nav-header">
+                    <a href="#" data-toggle="collapse" data-target="#menu_search"> Search <i class="glyphicon glyphicon-chevron-right"></i></a>
+                    <ul class="nav nav-stacked collapse" id="menu_search">
+                        <li><a href="#">Purchase</a></li>
+                        <li><a href="#">Low</a></li>
+                        <li><a href="#">Counting</a></li>
+                        <li><a href="#">Depreciations</a></li>
+                        <li><a href="#">Maintenance</a>
+                        <li><a href="#">Revalorizations</a>
+                        <li><a href="#">Movements</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu_stats"> Statistics <i class="glyphicon glyphicon-chevron-right"></i></a>
+                    <ul class="nav nav-stacked collapse" id="menu_stats">
+                        <li><a href="#">Information &amp; Stats</a></li>
+                        <li><a href="#">Views</a></li>
+                        <li><a href="#">Requests</a></li>
+                        <li><a href="#">Timetable</a></li>
+                        <li><a href="#">Alerts</a></li>
+                    </ul>
+                </li>
+                <li class="nav-header"> <a href="#" data-toggle="collapse" data-target="#menu_reports"> Reports <i class="glyphicon glyphicon-chevron-right"></i></a>
+                    <ul class="nav nav-stacked collapse" id="menu_reports">
+                        <li><a href="#">Report 1</a></li>
+                        <li><a href="#">Report 2</a></li>
+                        <li><a href="#">Report 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /col-2 -->
+        <div class="col-sm-10">
+            {% block canvas %}
+            {% endblock %}
+        </div>
+        <!--/col-10 -->
+    </div>
+</div>
+<!-- /Main -->
+
+<div class="modal" id="addWidgetModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add Widget</h4>
+            </div>
+            <div class="modal-body">
+                <p>Add a widget stuff here..</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn">Close</a>
+                <a href="#" class="btn btn-primary">Save changes</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dalog -->
+</div>
+<!-- /.modal -->
+
+{% block moreblock %}
+{% endblock %}
+
+<!-- script references -->
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'js/notificacionpanel.js' %}"></script>
+<script src="{% static 'js/jquery.validationEngine.js' %}"></script>
+<script src="{% static 'js/jquery.validationEngine-es.js' %}"></script>
+<script src="{% static 'js/smoke.min.js' %}"></script>
+<script>
+
+    $(function () {
+
+        var serverdate = new Date({{ currenttime.year }},{{ currenttime.month }}-1,{{ currenttime.day }}, {{ currenttime.hour }},{{ currenttime.minute }},{{ currenttime.second }},0);
+        var clientdate = new Date();
+
+        function showTime()
+        {
+            var today=new Date();
+            var timediff = today - clientdate;
+
+            var renderdate = new Date(serverdate.getTime() + timediff);
+
+            var h=renderdate.getHours();
+            var mer = " AM";
+            if (h>12) {
+                mer = " PM";
+                h -= 12;
+            }
+            var m=renderdate.getMinutes();
+            var s=renderdate.getSeconds();
+
+            // add a zero in front of numbers<10
+            //h=checkTime(h);
+            m=checkTime(m);
+            s=checkTime(s);
+            $("#clock").text(h+":"+m+mer);
+        }
+        function checkTime(i)
+        {
+            if (i<10)
+            {
+                i="0" + i;
+            }
+            return i;
+        }
+        setInterval(showTime,15000);
+        showTime();
+
+        numerico = function(elemento, min, max, decimales) {
+            var nvalor;
+            var valor = elemento.val();
+            if (valor==""){
+                valor = parseFloat(min).toFixed(decimales);
+                elemento.val(valor);
+                return;
+            }
+            if (isNaN(valor)){
+                nvalor = parseFloat(min).toFixed(decimales);
+                elemento.val(nvalor);
+                return;
+            }
+            if (valor < min) {
+                nvalor = parseFloat(min).toFixed(decimales);
+                elemento.val(nvalor);
+                return;
+            }
+            if (max>0 && valor>max){
+                nvalor = parseFloat(max).toFixed(decimales);
+                elemento.val(nvalor);
+                return;
+            }
+            nvalor = parseFloat(valor).toFixed(decimales);
+            elemento.val(nvalor);
+        };
+
+        $(".tt").tooltip({placement:"top"});
+        $(".tb").tooltip({placement:"bottom"});
+        $(".tr").tooltip({placement:"right"});
+        $(".tl").tooltip({placement:"left"});
+
+    });
+
+</script>
+
+{% block heading %}
+{% endblock %}
+
+</body>
+</html>

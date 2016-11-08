@@ -1,0 +1,266 @@
+[
+  {
+    "model": "af.area",
+    "pk": 1,
+    "fields": {
+      "name": "Accounting Office",
+      "responsible": "Michael Jordan"
+    }
+  },
+  {
+    "model": "af.area",
+    "pk": 2,
+    "fields": {
+      "name": "Technology Office",
+      "responsible": "Andrew Benne"
+    }
+  },
+  {
+    "model": "af.area",
+    "pk": 3,
+    "fields": {
+      "name": "Administration Office",
+      "responsible": "Maria Pons"
+    }
+  },
+  {
+    "model": "af.area",
+    "pk": 4,
+    "fields": {
+      "name": "Security Office",
+      "responsible": "Mel Gibson"
+    }
+  },
+  {
+    "model": "af.area",
+    "pk": 5,
+    "fields": {
+      "name": "Marketing Office",
+      "responsible": "Sofia Jones"
+    }
+  },
+  {
+    "model": "af.assettype",
+    "pk": 1,
+    "fields": {
+      "name": "Technologies",
+      "rate": "30.0"
+    }
+  },
+  {
+    "model": "af.assettype",
+    "pk": 2,
+    "fields": {
+      "name": "Furnitures",
+      "rate": "20.0"
+    }
+  },
+  {
+    "model": "af.assettype",
+    "pk": 3,
+    "fields": {
+      "name": "Offices",
+      "rate": "10.0"
+    }
+  },
+  {
+    "model": "af.assettype",
+    "pk": 4,
+    "fields": {
+      "name": "Automotives",
+      "rate": "40.0"
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 1,
+    "fields": {
+      "code": "T-001",
+      "description": "Screen Touch Samsung 23inch",
+      "type": 1,
+      "area": 1,
+      "initial_value": 200.00,
+      "current_value": 200.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 2,
+    "fields": {
+      "code": "T-002",
+      "description": "CPU Intel Core I7 1TB HDD",
+      "type": 1,
+      "area": 2,
+      "initial_value": 350.00,
+      "current_value": 350.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 3,
+    "fields": {
+      "code": "T-003",
+      "description": "Tablet LG 10inch Ram 8GB",
+      "type": 1,
+      "area": 3,
+      "initial_value": 175.00,
+      "current_value": 175.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 4,
+    "fields": {
+      "code": "T-004",
+      "description": "Printer HP Deskjet MP-1520",
+      "type": 1,
+      "area": 4,
+      "initial_value": 420.00,
+      "current_value": 420.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 5,
+    "fields": {
+      "code": "F-100",
+      "description": "Queen Bed color white",
+      "type": 2,
+      "area": 4,
+      "initial_value": 850.00,
+      "current_value": 850.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 6,
+    "fields": {
+      "code": "F-200",
+      "description": "King Bed color blue and gray",
+      "type": 2,
+      "area": 3,
+      "initial_value": 1200.00,
+      "current_value": 1200.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 7,
+    "fields": {
+      "code": "F-300",
+      "description": "Living room furniture black & white",
+      "type": 2,
+      "area": 2,
+      "initial_value": 1560.00,
+      "current_value": 1560.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 8,
+    "fields": {
+      "code": "F-400",
+      "description": "Dining room furniture red & white",
+      "type": 2,
+      "area": 1,
+      "initial_value": 600.00,
+      "current_value": 600.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 9,
+    "fields": {
+      "code": "O-500",
+      "description": "Computer chair black",
+      "type": 3,
+      "area": 1,
+      "initial_value": 150.00,
+      "current_value": 150.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 10,
+    "fields": {
+      "code": "O-600",
+      "description": "File cabinet color black",
+      "type": 3,
+      "area": 2,
+      "initial_value": 180.00,
+      "current_value": 180.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 11,
+    "fields": {
+      "code": "O-700",
+      "description": "Bookshelf with drawers",
+      "type": 3,
+      "area": 3,
+      "initial_value": 260.00,
+      "current_value": 260.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 12,
+    "fields": {
+      "code": "O-800",
+      "description": "Computer table color green",
+      "type": 3,
+      "area": 4,
+      "initial_value": 200.00,
+      "current_value": 200.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 13,
+    "fields": {
+      "code": "A-301",
+      "description": "Honda CRV 2015 color gray",
+      "type": 4,
+      "area": 4,
+      "initial_value": 32000.00,
+      "current_value": 32000.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 14,
+    "fields": {
+      "code": "A-302",
+      "description": "Nissan Murano 2016 color white",
+      "type": 4,
+      "area": 3,
+      "initial_value": 36000.00,
+      "current_value": 36000.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 15,
+    "fields": {
+      "code": "A-303",
+      "description": "Toyota Corolla 2014 color black",
+      "type": 4,
+      "area": 2,
+      "initial_value": 25500.00,
+      "current_value": 25500.00
+    }
+  },
+  {
+    "model": "af.asset",
+    "pk": 16,
+    "fields": {
+      "code": "A-304",
+      "description": "Ford 2015 color black & blue",
+      "type": 4,
+      "area": 1,
+      "initial_value": 42000.00,
+      "current_value": 42000.00
+    }
+  }
+]
